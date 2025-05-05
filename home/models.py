@@ -16,7 +16,10 @@ class Cars(models.Model):
    speed = models.IntegerField(default=60)
    
    def __str__(self):
-       return self.car_name
+       return self.car_name 
+   
+   
+   
 
 @receiver(post_save ,sender = Cars)
 def call_car_api(sender,instance, **kwargs):
