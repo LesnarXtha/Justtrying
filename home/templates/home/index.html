@@ -1,0 +1,46 @@
+{%extends "base.html" %}
+
+{%block title%}Main{%endblock%}
+
+{%block body%}
+   <div class="container">
+
+   </div>
+    <h1>Template engine</h1>
+    <!-- {{peoples}} -->
+    <table class="container">
+        <tr>
+            <td>S. No</td>
+            <td>Name</td>
+            <td>Age</td>
+            <td>Can Vote</td>
+        </tr>
+        {%for people in peoples%}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{people.name}}</td>
+            <td>{{people.age}}</td>
+
+            <td {%if people.age <= 18%} style="background:red" {%else%} style="background:green"   {% endif %}>
+                {%if people.age <= 18%}
+                Not Eligible
+                {%else%}
+                Eligible
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>
+        {%if "garlic" in vegetable %}
+        Garlic is available
+        {%elif "Tomato" in vegetable %}
+        Tomato is available
+        {%else%}
+        Not available
+        {%endif%}
+    </p>
+    <p>
+        {{text|truncatechars:20}}
+    </p>
+{%endblock%}

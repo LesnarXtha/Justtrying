@@ -1,0 +1,101 @@
+
+{%extends "base.html" %}
+
+{%block title%}Student Record{%endblock%}
+
+{%block body%}
+
+<div class="container mt-5">
+    <form>
+        <div class="row">
+            <div class="col-md-4">
+                <input class="form-control" type="text" placeholder="Search by Student id,name,email,department" name="Search">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success">Search</button>
+                <button type="submit" class="btn btn-danger" name="reset">Reset</button>
+            </div>
+        </div>
+    </form>
+    
+</div>
+
+<div class="container mt-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>S. No</td>
+                <td>Department</td>
+                <td>Student ID</td>
+                <td>Student Name</td>
+                <td>Student Email</td>
+                <td>Student Age</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in queryset%}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{student.department.department}}</td>
+                <td><a href="{%url 'see_marks' student.student_id%}">{{student.student_id}}</a>
+                </td>
+                <td>{{student.student_name}}</td>
+                <td>{{student.student_email}}</td>
+                <td>{{student.student_age}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+<div class="container mt-5">
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+
+            {% if queryset.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ queryset.previous_page_number }}">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;&laquo;</span>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>
+            {% endif %}
+
+            <li class="page-item disabled">
+                <span class="page-link">
+                    Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}
+                </span>
+            </li>
+
+            {% if queryset.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ queryset.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ queryset.paginator.num_pages }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Next</span>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">&raquo;&raquo;</span>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+</div>
+
+
+{%endblock%}

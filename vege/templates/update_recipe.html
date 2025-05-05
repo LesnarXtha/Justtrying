@@ -1,0 +1,36 @@
+{%extends "base.html" %}
+
+{%block title%}Update{%endblock%}
+
+{%block body%}
+
+<div class="container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow l-g" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Update Recipe</h1>
+        <hr>
+        <div class="mb-3">
+            <label for="name" class="form-label">Recipe Name</label>
+            <input type="text" id="name" name="recipe_name" class="form-control" value="{{recipes.recipe_name}}">
+        </div>
+        <div class="mb-3">
+            <label for="recipe_description" class="form-label">Recipe Description</label>
+            <textarea id="recipe_description" name="recipe_description" class="form-control">{{recipes.recipe_description}}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="recipe_image" class="form-label">Recipe Image</label>
+            <input type="file" name="recipe_image" class="form-control" >        
+        </div>
+        <div class="p-4">
+            The current img is:         
+            <img src="{{ recipes.recipe_image.url }}" height="200px">
+        </div>
+        <button type="submit" class="btn btn-success">Update Recipe</button>
+        <a href="/recipes/" class="btn btn-primary mt-2">Go back</a>
+
+    </form>
+
+
+</div>
+
+{%endblock%}
